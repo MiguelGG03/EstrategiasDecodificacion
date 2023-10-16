@@ -33,6 +33,36 @@ Se generan logits en vez de directamente texto por las siguientes razones fundam
 LLM (Large Language Model) es un modelo de lenguaje NPL (Natural Processing Language), que se entrena con conjuntos de datos muy grandes de texto en lenguaje natural utilizando Deep Learning, generalmente reddes neuronales artificiales.
 Es utilizado para entender, resumir, generar y predecir contenido.
 
+### Análisis de cómo los logits se traducen en texto
+
+Los logits se traducen en texto a través de un proceso conocido como decodificación.
+
+La decodificación es la etapa en la que se selecciona un token específico a partir de los valores de los logits para construir una secuencia de texto coherente.
+
+####  Análisis detallado de cómo los logits se traducen en texto
+
+1. `Generación de Logits:` Primero, un modelo de lenguaje generativo, como GPT-2, produce una secuencia de logits. Cada logit corresponde a un token en el vocabulario del modelo y representa cuán probable es que ese token sea el siguiente en la secuencia de texto.
+
+2. `Normalización:` Los logits no son directamente interpretables como probabilidades, ya que no suman 1. Para hacer que los logits sean interpretables como probabilidades, se aplica una función de activación llamada "softmax" a los valores. El softmax transforma los logits en una distribución de probabilidad, donde cada valor representa la probabilidad de que un token en el vocabulario sea el siguiente en la secuencia.
+
+3. `Selección de Token:` Una vez que los logits se han convertido en una distribución de probabilidad, se puede seleccionar el próximo token de varias maneras. Las estrategias comunes incluyen:
+
+    - `Argmax:` Se elige el token con la probabilidad más alta. Esto genera una secuencia de texto determinista y puede llevar a una falta de diversidad en el texto generado.
+    - `Muestreo Aleatorio:` Se elige un token aleatoriamente de acuerdo con las probabilidades estimadas por el softmax. Esto introduce variabilidad en el texto generado y puede hacer que sea más diverso.
+4. `Consideración del Contexto:` La elección del token siguiente suele basarse en el contexto de la secuencia de texto anterior. El modelo utiliza la secuencia generada hasta ese punto para influir en la selección del próximo token, lo que le permite generar texto coherente y relevante.
+
+5. `Generación Continua:` El proceso de selección y generación de tokens se repite para generar una secuencia más larga de texto. Cada nuevo token generado se agrega a la secuencia anterior, y los logits se recalculan teniendo en cuenta la secuencia ampliada.
+
+6. `Fin de la Generación:` La generación de texto puede finalizar según ciertos criterios, como alcanzar una longitud deseada, encontrar un token especial de finalización o cuando el modelo considera que se ha completado el texto de manera coherente.
+
+En resumen, los logits se traducen en texto a través del proceso de decodificación, que implica la selección de tokens basados en las probabilidades calculadas por el modelo. La elección del token siguiente se basa en el contexto de la secuencia de texto generada hasta ese punto, lo que permite generar texto coherente y significativo. La forma en que se eligen los tokens y se utiliza el contexto influye en la calidad y la fluidez del texto generado por un modelo de lenguaje.
+
+
+
+
+
+
+
 
 ## Proceso de Generación de texto
 

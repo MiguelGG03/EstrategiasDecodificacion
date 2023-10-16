@@ -247,3 +247,13 @@ Las estrategias de decodificación desempeñan un papel fundamental en la genera
 - `Interacción con el Usuario:` En aplicaciones de chatbots o asistentes virtuales, la elección de la estrategia de decodificación puede influir en la naturaleza de la conversación. Estrategias que favorecen la coherencia pueden mejorar la interacción con el usuario.
 
 En resumen, las estrategias de decodificación son esenciales en la generación de texto y permiten adaptar los modelos de lenguaje a diversas aplicaciones y requisitos. La selección adecuada de estas estrategias es clave para lograr un equilibrio entre coherencia, creatividad, calidad y eficiencia en la generación de texto.
+
+### Conclusiones
+
+- Las estrategias de decodificación desempeñan un papel fundamental en la generación de texto y permiten ajustar la salida de los modelos de lenguaje generativos a los objetivos específicos.
+
+- La elección de hiperparámetros como la temperatura, num_beams, top_k y top_p tiene un impacto significativo en la coherencia, creatividad y calidad del texto generado.
+
+- Estrategias como la búsqueda de haz y el muestreo de núcleo ofrecen un equilibrio entre coherencia y diversidad en la generación de texto.
+
+- Las aplicaciones de los LLMs son variadas, desde escritura creativa hasta chatbots y traducción automática. La elección de estrategias de decodificación debe ser específica para cada caso de uso.

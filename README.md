@@ -4,6 +4,8 @@ El enlace al repositorio de la tarea es el siguiente: [GitHub Repository](https:
 
 ## Descripción Detallada de LLM
 
+### Explicación de cómo LLMs, no producen texto directamente, sino logits.
+
 LLM (Large Language Model) es un modelo de lenguaje NPL (Natural Processing Language), que se entrena con conjuntos de datos muy grandes de texto en lenguaje natural utilizando Deep Learning, generalmente reddes neuronales artificiales.
 Es utilizado para entender, resumir, generar y predecir contenido.
 

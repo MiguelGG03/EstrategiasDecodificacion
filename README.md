@@ -152,3 +152,47 @@ Sin embargo, la búsqueda de haz también presenta algunas `limitaciones`:
 ##### Conclusión
 
  La búsqueda de haz es un enfoque intermedio entre la búsqueda codiciosa y la generación completamente aleatoria. Ofrece un equilibrio entre diversidad y coherencia en el texto generado y se utiliza comúnmente en aplicaciones de generación de lenguaje donde se requiere una salida de alta calidad y variedad.
+
+
+### Discusión sobre muestreo con top-k y muestreo de núcleo.
+
+El muestreo con top-k (top-k sampling) y el muestreo de núcleo (nucleus sampling) son dos técnicas de muestreo utilizadas en modelos de lenguaje generativos, como los Modelos de Lenguaje con Atención (LLM), para controlar la generación de texto. A continuación, se presenta una discusión sobre ambas técnicas y sus diferencias.
+
+#### Muestreo con Top-k:
+
+El muestreo con top-k es una técnica que se utiliza para limitar las opciones de generación a un subconjunto de tokens con las probabilidades más altas en cada paso. El proceso se realiza de la siguiente manera:
+
+1. En cada paso de generación, se calculan las probabilidades de todos los tokens en el vocabulario en función del contexto actual.
+
+2. Luego, se seleccionan los k tokens con las probabilidades más altas. El valor de k es un parámetro ajustable y controla cuántas opciones se consideran.
+
+3. Finalmente, se elige un token aleatoriamente de entre esos k tokens con una probabilidad uniforme o ponderada por las probabilidades.
+
+#### Muestreo de Núcleo (Nucleus Sampling):
+
+El muestreo de núcleo es una técnica que se utiliza para mantener un "núcleo" de tokens cuyas probabilidades acumuladas superan un cierto umbral. El proceso se realiza de la siguiente manera:
+
+1. Se calculan las probabilidades de todos los tokens en el vocabulario en función del contexto actual.
+
+2. Se ordenan los tokens en función de sus probabilidades de manera descendente.
+
+3. Se seleccionan los tokens hasta que la suma de sus probabilidades acumuladas alcance un cierto umbral, definido por un parámetro ajustable, a menudo denominado "núcleo" (por ejemplo, 0.9 significa que se considerarán tokens cuyas probabilidades acumuladas sumen al menos el 90% de la masa total de probabilidad).
+
+4. Luego, se elige un token aleatoriamente de entre este conjunto seleccionado con una probabilidad uniforme o ponderada por las probabilidades.
+
+#### Comparación:
+
+- `Diversidad:` El muestreo con top-k tiende a ser más restrictivo en términos de diversidad, ya que limita las opciones a un número fijo de tokens con las probabilidades más altas. En contraste, el muestreo de núcleo permite una mayor diversidad, ya que selecciona tokens en función de un umbral acumulado.
+
+- `Control de Calidad:` El muestreo con top-k puede garantizar una cierta calidad en la generación, ya que se eligen las opciones más probables. El muestreo de núcleo ofrece un mayor equilibrio entre calidad y diversidad.
+
+- `Parámetros Ajustables:` Ambas técnicas son parametrizables (k en top-k y el umbral en núcleo). Los valores de estos parámetros influyen en la generación.
+
+- `Uso de Recursos:` El muestreo de núcleo puede ser más eficiente en términos de recursos que el top-k, ya que no requiere ordenar y seleccionar explícitamente los k tokens.
+
+#### Conclusión
+En resumen, tanto el muestreo con top-k como el muestreo de núcleo son útiles para controlar la generación de texto en modelos de lenguaje generativos. La elección entre ellos depende de los objetivos específicos de generación y de la cantidad de diversidad y calidad deseada en el texto generado.
+
+## Hiperparámetros y su Manipulación
+
+###

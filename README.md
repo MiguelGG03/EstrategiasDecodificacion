@@ -57,13 +57,6 @@ La decodificación es la etapa en la que se selecciona un token específico a pa
 
 En resumen, los logits se traducen en texto a través del proceso de decodificación, que implica la selección de tokens basados en las probabilidades calculadas por el modelo. La elección del token siguiente se basa en el contexto de la secuencia de texto generada hasta ese punto, lo que permite generar texto coherente y significativo. La forma en que se eligen los tokens y se utiliza el contexto influye en la calidad y la fluidez del texto generado por un modelo de lenguaje.
 
-
-
-
-
-
-
-
 ## Proceso de Generación de texto
 
 ### Descripción del proceso

@@ -195,4 +195,14 @@ En resumen, tanto el muestreo con top-k como el muestreo de núcleo son útiles 
 
 ## Hiperparámetros y su Manipulación
 
-###
+### Discusión sobre temperatura, num_beams, top_k y top_p.
+
+- `Temperatura (Temperature):` La temperatura es un hiperparámetro que controla la aleatoriedad en la generación de texto. Un valor alto de temperatura, como 2, hace que la generación sea más aleatoria, lo que puede dar lugar a resultados creativos pero a veces incoherentes. Un valor bajo de temperatura, como 0.5, hace que la generación sea más determinista y centrada en las palabras más probables.
+
+- `num_beams:` Num_beams controla la cantidad de "rayos" o "beams" que el modelo considera al generar texto. Un valor mayor aumenta la coherencia y calidad, pero puede reducir la diversidad. Es útil para la generación de texto coherente y bien estructurado.
+
+- `top_k:` Top_k especifica la cantidad de tokens con las probabilidades más altas que se consideran en cada paso de generación. Limita las opciones a un conjunto fijo de tokens, lo que puede ser útil para evitar generaciones incoherentes y raras.
+
+- `top_p (núcleo):` Top_p, a menudo llamado "núcleo," establece un umbral acumulado para la suma de las probabilidades de los tokens en cada paso. Solo se consideran tokens cuyas probabilidades acumuladas superan ese umbral. Es útil para equilibrar calidad y diversidad en la generación.
+
+La elección de estos hiperparámetros depende de los objetivos específicos de generación. Una temperatura alta con un valor bajo de num_beams puede generar texto creativo pero potencialmente incoherente. Por otro lado, un num_beams alto con un top_k o top_p ajustado puede producir texto altamente coherente. Los usuarios ajustan estos hiperparámetros para lograr el equilibrio deseado entre coherencia, calidad y diversidad en los resultados generados.

@@ -30,7 +30,7 @@ Se generan logits en vez de directamente texto por las siguientes razones fundam
 
 - `Escalabilidad:` Los modelos generan texto de manera autoregresiva, lo que significa que toman decisiones secuenciales sobre los tokens siguientes en función del contexto actual. Esta arquitectura es escalable y puede generar secuencias de texto de longitud variable sin necesidad de cambiar la estructura del modelo.
 
-LLM (Large Language Model) es un modelo de lenguaje NPL (Natural Processing Language), que se entrena con conjuntos de datos muy grandes de texto en lenguaje natural utilizando Deep Learning, generalmente reddes neuronales artificiales.
+LLM (Large Language Model) es un modelo de lenguaje NPL (Natural Processing Language), que se entrena con conjuntos de datos muy grandes de texto en lenguaje natural utilizando Deep Learning, generalmente redes neuronales artificiales.
 Es utilizado para entender, resumir, generar y predecir contenido.
 
 ### Análisis de cómo los logits se traducen en texto
@@ -72,3 +72,83 @@ Este proceso sigue unos pasos:
 ### Representación ilustrativa
 
 ![Tokenización](imgs/tokenización.png)
+
+## Estrategias de Decodificación
+
+### Descripción y análisis de la búsqueda codiciosa y la búsqueda de haz
+
+#### `- La búsqueda codiciosa:`
+
+La búsqueda codiciosa (también conocida como greedy search) es un algoritmo de búsqueda que se utiliza comúnmente en procesos de decodificación en modelos de lenguaje generativo, como los Transformers utilizados en los LLM (Modelos de Lenguaje con Atención, por sus siglas en inglés) como GPT-2 y GPT-3.
+
+##### Descripción
+
+La búsqueda codiciosa es un enfoque de decodificación que se utiliza para generar secuencias de texto de manera iterativa. Funciona de la siguiente manera:
+
+1. Comienza con una secuencia de texto inicial (por lo general, una o varias palabras iniciales) y un modelo de lenguaje entrenado.
+
+2. Se pasa la secuencia inicial al modelo de lenguaje, que produce una distribución de probabilidad sobre el vocabulario para el siguiente token en la secuencia.
+
+3. El token con la probabilidad más alta (el token argmax) se selecciona como el siguiente token en la secuencia.
+
+4. El token seleccionado se agrega a la secuencia y se repite el proceso. La secuencia se amplía en un token a la vez.
+
+5. Este proceso continúa hasta que se alcanza una longitud deseada, se encuentra un token de finalización específico o se utiliza algún otro criterio de finalización.
+
+##### Análisis
+
+La búsqueda codiciosa es un enfoque simple y eficiente para generar texto, pero tiene algunas limitaciones notables:
+
+1. `Determinismo:` Dado que la búsqueda codiciosa siempre selecciona el token más probable en cada paso, es un proceso determinista. Esto significa que si se inicia con la misma secuencia inicial, el modelo siempre generará la misma secuencia de salida. Esto puede llevar a una falta de diversidad en el texto generado y hacer que sea predecible.
+
+2. `Falta de Exploración:` La búsqueda codiciosa no explora diferentes caminos de generación. Se adhiere a la ruta más probable en cada paso. Esto puede llevar a que el modelo ignore opciones menos probables que podrían resultar en un texto más interesante o creativo.
+
+3. `Coherencia Limitada:` Aunque la búsqueda codiciosa genera texto coherente a nivel gramatical y semántico, no siempre produce texto con coherencia global. Puede haber problemas de coherencia a medida que la secuencia se alarga, ya que cada elección se basa únicamente en el token anterior.
+
+4. `Incapacidad para Retroceder:` Una vez que se ha seleccionado un token en la búsqueda codiciosa, no se puede retroceder y cambiar esa decisión. Esto puede llevar a problemas si el modelo se da cuenta de un error o una elección incorrecta en pasos anteriores.
+
+##### Conclusión
+
+A pesar de estas limitaciones, la búsqueda codiciosa sigue siendo un enfoque ampliamente utilizado debido a su simplicidad y eficiencia. Sin embargo, en aplicaciones donde la diversidad y la creatividad son fundamentales, suelen emplearse enfoques de generación más avanzados, como el muestreo aleatorio (sampling) o la búsqueda estocástica. Estos enfoques permiten una generación más variada y exploratoria, pero a menudo son más costosos en cuanto a tiempo de cómputo.
+
+#### `- La búsqueda de haz:`
+
+
+La búsqueda de haz (beam search) es un algoritmo de búsqueda utilizado en procesos de decodificación en modelos de lenguaje generativo, como los Modelos de Lenguaje con Atención (LLM).
+
+##### Descripción
+La búsqueda de haz es un enfoque de decodificación que se utiliza para generar secuencias de texto de manera más sofisticada que la búsqueda codiciosa. Funciona de la siguiente manera:
+
+1. Comienza con una secuencia de texto inicial (por lo general, una o varias palabras iniciales) y un modelo de lenguaje entrenado.
+
+2. Se pasa la secuencia inicial al modelo de lenguaje, que produce una distribución de probabilidad sobre el vocabulario para el siguiente token en la secuencia.
+
+3. En lugar de seleccionar solo el token más probable, la búsqueda de haz mantiene un conjunto (o "haz") de las N secuencias más probables en cada paso. N se conoce como el ancho del haz y es un parámetro ajustable.
+
+4. Se calcula la probabilidad conjunta de cada secuencia en el haz tomando en cuenta las probabilidades de los tokens anteriores y las probabilidades actuales del modelo.
+
+5. Se seleccionan las N secuencias con las probabilidades conjuntas más altas para continuar generando. Estas N secuencias se convierten en el nuevo haz.
+
+6. Este proceso se repite hasta que se alcanza una longitud deseada, se encuentra un token de finalización específico o se utiliza algún otro criterio de finalización.
+
+##### Análisis
+
+La búsqueda de haz aborda algunas de las limitaciones de la búsqueda codiciosa y tiene varias ventajas:
+
+1. `Diversidad en la Generación:` Al mantener múltiples secuencias en el haz, la búsqueda de haz puede generar texto más diverso y variado. Esto evita la repetición y la previsibilidad de la búsqueda codiciosa.
+
+2. `Coherencia Mejorada:` Las secuencias en el haz suelen ser más coherentes en términos de contenido y contexto, ya que se consideran múltiples opciones en cada paso de generación.
+
+3. `Mayor Flexibilidad:` El ancho del haz (el número de secuencias en el haz) es un parámetro ajustable, lo que permite a los usuarios controlar el equilibrio entre diversidad y calidad en la generación.
+
+Sin embargo, la búsqueda de haz también presenta algunas `limitaciones`:
+
+1. `Mayor Uso de Recursos:` Aumentar el ancho del haz requiere más recursos computacionales, ya que se deben mantener y calcular las probabilidades de múltiples secuencias. Esto puede hacer que la generación sea más lenta.
+
+2. `Riesgo de Bloqueo en Mínimos Locales:` La búsqueda de haz tiende a converger hacia secuencias comunes y seguras, lo que puede llevar a que el texto generado sea conservador y carezca de originalidad.
+
+3. `Complejidad en la Implementación:` Implementar una búsqueda de haz eficiente puede ser más complejo que la búsqueda codiciosa debido a la necesidad de rastrear múltiples secuencias y sus probabilidades conjuntas.
+
+##### Conclusión
+
+ La búsqueda de haz es un enfoque intermedio entre la búsqueda codiciosa y la generación completamente aleatoria. Ofrece un equilibrio entre diversidad y coherencia en el texto generado y se utiliza comúnmente en aplicaciones de generación de lenguaje donde se requiere una salida de alta calidad y variedad.

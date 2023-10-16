@@ -206,3 +206,44 @@ En resumen, tanto el muestreo con top-k como el muestreo de núcleo son útiles 
 - `top_p (núcleo):` Top_p, a menudo llamado "núcleo," establece un umbral acumulado para la suma de las probabilidades de los tokens en cada paso. Solo se consideran tokens cuyas probabilidades acumuladas superan ese umbral. Es útil para equilibrar calidad y diversidad en la generación.
 
 La elección de estos hiperparámetros depende de los objetivos específicos de generación. Una temperatura alta con un valor bajo de num_beams puede generar texto creativo pero potencialmente incoherente. Por otro lado, un num_beams alto con un top_k o top_p ajustado puede producir texto altamente coherente. Los usuarios ajustan estos hiperparámetros para lograr el equilibrio deseado entre coherencia, calidad y diversidad en los resultados generados.
+
+### Ejemplos de cómo manipular estos hiperparámetros puede afectar la salida.
+
+1. `Temperatura (Temperature):`
+
+    - `Alta temperatura (por ejemplo, 2.0):` Generará texto muy aleatorio, donde las predicciones son menos predecibles. Por ejemplo, "El cielo azul es como un río de ensueño que baila con los elefantes morados."
+    - `Baja temperatura (por ejemplo, 0.5):` Generará texto más determinista y coherente, donde las predicciones se centran en las opciones más probables. Por ejemplo, "El cielo azul es sereno y claro."
+2. `num_beams:`
+
+    - `Num_beams bajo (por ejemplo, 1):` Generará una sola secuencia de texto y puede carecer de diversidad. Por ejemplo, "El gato está en la alfombra."
+    - `Num_beams alto (por ejemplo, 5):` Generará múltiples secuencias candidatas y seleccionará la mejor. Esto puede dar lugar a una mayor coherencia y calidad. Por ejemplo, "El gato duerme placenteramente en la suave alfombra mientras el perro juega cerca."
+3. `top_k:`
+
+    - `Top_k bajo (por ejemplo, 10):` Limitará las opciones a un pequeño número de palabras, lo que puede llevar a resultados más predecibles y repetitivos. Por ejemplo, "El clima es soleado y el cielo está despejado."
+    - `Top_k alto (por ejemplo, 50):` Considerará una gama más amplia de palabras, lo que puede aumentar la diversidad en la generación. Por ejemplo, "El clima es soleado y maravilloso, con un cielo azul y claro."
+4. `top_p (núcleo):`
+
+    - `Top_p bajo (por ejemplo, 0.2):` Establece un umbral estricto y limitará las opciones a las palabras más probables, generando textos muy centrados. Por ejemplo, "El clima es soleado."
+    - `Top_p alto (por ejemplo, 0.8):` Permite una gama más amplia de opciones y puede llevar a textos más largos y diversos. Por ejemplo, "El clima es increíblemente hermoso, con un cielo despejado y un sol radiante que calienta el día."
+
+## Reflexión y Conclusiones
+
+### Reflexiones
+
+Las estrategias de decodificación desempeñan un papel fundamental en la generación de texto mediante Modelos de Lenguaje con Transformers (LLMs) como GPT-2. Su importancia radica en que permiten ajustar y controlar el proceso de generación de texto de manera que se adecúe a los objetivos y requisitos específicos. A continuación, se destacan algunas reflexiones sobre su impacto y relevancia:
+
+- `Control de la Creatividad:` Las estrategias de decodificación ofrecen un control significativo sobre la creatividad del modelo. Por ejemplo, al ajustar la temperatura, es posible equilibrar entre generación altamente creativa y coherencia. Esto es crucial en aplicaciones como la escritura creativa, donde se busca contenido original pero no caótico.
+
+- `Coherencia y Calidad del Texto:` Estrategias como la búsqueda de haz (beam search) tienden a generar texto más coherente y de alta calidad al considerar múltiples secuencias candidatas y elegir la mejor. Esto es beneficioso en aplicaciones donde la precisión y la fluidez son fundamentales.
+
+- `Diversidad y Exploración:` Para tareas que requieren diversidad en la generación, como la recomendación de productos o la creación de variantes de texto, estrategias como el muestreo con top-k y el muestreo de núcleo permiten explorar diferentes opciones. Esto evita la generación repetitiva y monótona.
+
+- `Alineación con el Contexto:` La elección de la estrategia de decodificación puede influir en la coherencia contextual. Por ejemplo, el muestreo de núcleo es útil cuando se desea que las palabras generadas estén más alineadas con el contexto previo.
+
+- `Eficiencia y Recursos Computacionales:` La elección de la estrategia puede afectar los recursos computacionales necesarios. Por ejemplo, la búsqueda de haz es más costosa en términos de tiempo de cómputo que la búsqueda codiciosa. Esto es relevante en entornos donde se necesita una generación rápida.
+
+- `Personalización y Adaptación:` La elección de la estrategia de decodificación puede ser personalizada según el caso de uso específico. Diferentes aplicaciones pueden requerir un enfoque único para lograr los mejores resultados.
+
+- `Interacción con el Usuario:` En aplicaciones de chatbots o asistentes virtuales, la elección de la estrategia de decodificación puede influir en la naturaleza de la conversación. Estrategias que favorecen la coherencia pueden mejorar la interacción con el usuario.
+
+En resumen, las estrategias de decodificación son esenciales en la generación de texto y permiten adaptar los modelos de lenguaje a diversas aplicaciones y requisitos. La selección adecuada de estas estrategias es clave para lograr un equilibrio entre coherencia, creatividad, calidad y eficiencia en la generación de texto.
